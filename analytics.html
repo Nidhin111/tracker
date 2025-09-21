@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - TicketManager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7e6af7;
+            --primary-dark: #6554d8;
+            --secondary: #ff7b54;
+            --success: #2ecc71;
+            --danger: #ff5e57;
+            --warning: #ffbd44;
+            --info: #3498db;
+            --dark: #222639;
+            --darker: #1a1e2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --text-primary: #ffffff;
+            --text-secondary: #b2b7c7;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1e2e 0%, #2d334f 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(34, 38, 57, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo h1 {
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .nav-item {
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-role {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title i {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .access-denied {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .access-denied i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--danger);
+        }
+
+        .user-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-admin {
+            background: rgba(126, 106, 247, 0.15);
+            color: var(--primary);
+        }
+
+        .badge-user {
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--info);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-ticket-alt"></i>
+                <h1>TicketManager</h1>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item" onclick="window.location.href='/'">Dashboard</div>
+                <div class="nav-item active">Analytics</div>
+                <div class="nav-item" onclick="window.location.href='/settings.html'">Settings</div>
+            </div>
+            <div class="user-info">
+                <div class="avatar" id="userAvatar">A</div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Loading... <span class="user-badge badge-admin" id="userRoleBadge">Admin</span></div>
+                    <div class="user-role" id="userRole">Administrator</div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="access-denied">
+                <i class="fas fa-chart-line"></i>
+                <h2>Analytics Coming Soon</h2>
+                <p>This section is under development and will be available in a future update.</p>
+                <p>Check back later for detailed analytics and reporting features.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        
+        // Check authentication and load user data
+        async function initializeUser() {
+            try {
+                const response = await fetch('/api/user');
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.user;
+                    updateUIForUser(currentUser);
+                } else {
+                    window.location.href = '/login.html';
+                }
+            } catch (error) {
+                window.location.href = '/login.html';
+            }
+        }
+        
+        // Update the UI based on user role
+        function updateUIForUser(user) {
+            document.getElementById('userAvatar').textContent = user.username.charAt(0);
+            document.getElementById('userName').innerHTML = `${user.username} <span class="user-badge ${user.role === 'admin' ? 'badge-admin' : 'badge-user'}">${user.role}</span>`;
+            document.getElementById('userRole').textContent = user.role === 'admin' ? 'Administrator' : 'User';
+            document.getElementById('userRoleBadge').textContent = user.role;
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeUser();
+        });
+    </script>
+</body>
+</html>

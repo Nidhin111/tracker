@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - TicketManager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7e6af7;
+            --primary-dark: #6554d8;
+            --secondary: #ff7b54;
+            --success: #2ecc71;
+            --danger: #ff5e57;
+            --warning: #ffbd44;
+            --info: #3498db;
+            --dark: #222639;
+            --darker: #1a1e2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --text-primary: #ffffff;
+            --text-secondary: #b2b7c7;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1e2e 0%, #2d334f 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(34, 38, 57, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo h1 {
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .nav-item {
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-role {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title i {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-primary);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(126, 106, 247, 0.2);
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(126, 106, 247, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(90deg, var(--danger) 0%, var(--warning) 100%);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .alert-success {
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
+        }
+
+        .alert-error {
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+        }
+
+        .user-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-admin {
+            background: rgba(126, 106, 247, 0.15);
+            color: var(--primary);
+        }
+
+        .badge-user {
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--info);
+        }
+
+        .access-denied {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .access-denied i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-ticket-alt"></i>
+                <h1>TicketManager</h1>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item" onclick="window.location.href='/'">Dashboard</div>
+                <div class="nav-item" onclick="window.location.href='/analytics.html'">Analytics</div>
+                <div class="nav-item active">Settings</div>
+            </div>
+            <div class="user-info">
+                <div class="avatar" id="userAvatar">A</div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Loading... <span class="user-badge badge-admin" id="userRoleBadge">Admin</span></div>
+                    <div class="user-role" id="userRole">Administrator</div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="alert alert-success" id="successMessage">
+                <i class="fas fa-check-circle"></i> <span id="successText"></span>
+            </div>
+            
+            <div class="alert alert-error" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
+            </div>
+            
+            <div id="adminSettings">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-envelope"></i>
+                            Email Access Control
+                        </div>
+                    </div>
+                    <p>Only emails in this list can register for an account.</p>
+                    
+                    <div style="display: flex; gap: 10px; margin: 15px 0;">
+                        <input type="email" class="form-control" id="newEmail" placeholder="Enter email to whitelist">
+                        <button class="btn btn-primary" id="addEmailBtn">
+                            <i class="fas fa-plus"></i> Add Email
+                        </button>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Added By</th>
+                                <th>Date Added</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="emailTableBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center;">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="nonAdminView" class="access-denied" style="display: none;">
+                <i class="fas fa-lock"></i>
+                <h2>Access Denied</h2>
+                <p>You need administrator privileges to access these settings.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        
+        // Check authentication and load user data
+        async function initializeUser() {
+            try {
+                const response = await fetch('/api/user');
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.user;
+                    updateUIForUser(currentUser);
+                    loadAllowedEmails();
+                } else {
+                    window.location.href = '/login.html';
+                }
+            } catch (error) {
+                window.location.href = '/login.html';
+            }
+        }
+        
+        // Update the UI based on user role
+        function updateUIForUser(user) {
+            document.getElementById('userAvatar').textContent = user.username.charAt(0);
+            document.getElementById('userName').innerHTML = `${user.username} <span class="user-badge ${user.role === 'admin' ? 'badge-admin' : 'badge-user'}">${user.role}</span>`;
+            document.getElementById('userRole').textContent = user.role === 'admin' ? 'Administrator' : 'User';
+            document.getElementById('userRoleBadge').textContent = user.role;
+            
+            // Show/hide admin features based on role
+            if (user.role !== 'admin') {
+                document.getElementById('adminSettings').style.display = 'none';
+                document.getElementById('nonAdminView').style.display = 'block';
+            }
+        }
+        
+        // Load allowed emails
+        async function loadAllowedEmails() {
+            if (currentUser.role !== 'admin') return;
+            
+            try {
+                const response = await fetch('/api/admin/allowed-emails');
+                if (response.ok) {
+                    const emails = await response.json();
+                    renderEmailTable(emails);
+                } else {
+                    showError('Failed to load allowed emails');
+                }
+            } catch (error) {
+                showError('Network error loading emails');
+            }
+        }
+        
+        // Render the email table
+        function renderEmailTable(emails) {
+            const tableBody = document.getElementById('emailTableBody');
+            
+            if (emails.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No emails whitelisted yet</td></tr>';
+                return;
+            }
+            
+            tableBody.innerHTML = '';
+            emails.forEach(email => {
+                const row = document.createElement('tr');
+                const date = new Date(email.added_at);
+                
+                row.innerHTML = `
+                    <td>${email.email}</td>
+                    <td>${email.added_by_name || 'System'}</td>
+                    <td>${date.toLocaleDateString()}</td>
+                    <td>
+                        <button class="btn btn-danger delete-email-btn" data-id="${email.id}">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-email-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const emailId = this.getAttribute('data-id');
+                    deleteEmail(emailId);
+                });
+            });
+        }
+        
+        // Add new email to whitelist
+        document.getElementById('addEmailBtn').addEventListener('click', async function() {
+            const emailInput = document.getElementById('newEmail');
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                showError('Please enter an email address');
+                return;
+            }
+            
+            // Basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/allowed-emails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                if (response.ok) {
+                    emailInput.value = '';
+                    showSuccess('Email added to whitelist');
+                    loadAllowedEmails();
+                } else {
+                    const data = await response.json();
+                    showError(data.error || 'Failed to add email');
+                }
+            } catch (error) {
+                showError('Network error adding email');
+            }
+        });
+        
+        // Delete email from whitelist
+        async function deleteEmail(emailId) {
+            if (!confirm('Are you sure you want to remove this email from the whitelist?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/admin/allowed-emails/${emailId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    showSuccess('Email removed from whitelist');
+                    loadAllowedEmails();
+                } else {
+                    const data = await response.json();
+                    showError(data.error || 'Failed to remove email');
+                }
+            } catch (error) {
+                showError('Network error removing email');
+            }
+        }
+        
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = message;
+            successDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            errorText.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeUser();
+        });
+    </script>
+</body>
+</html>
